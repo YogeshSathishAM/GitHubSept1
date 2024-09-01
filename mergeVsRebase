@@ -1,0 +1,58 @@
+disadvantages of rebase:
+this rewrites the merge history unlike git merge
+
+////////////////////////////////////////////////////////////////////////////////
+                              REBASE
+////////////////////////////////////////////////////////////////////////////////
+
+
+git rebase is a Git command that lets you integrate changes from one branch 
+into another. Unlike git merge, which creates a merge commit when integrating 
+branches, git rebase replays commits from your current branch onto another 
+base commit, creating a linear, cleaner project history.
+
+Replaying Commits: git rebase takes the commits from your current branch and 
+replays them onto another base commit (usually the tip of the target branch).
+this is how the history is re-written while doing rebase
+
+Basic Workflow
+
+1. Switch to the Branch You Want to Rebase:
+git checkout feature-branch
+
+2. Rebase onto the Target Branch (main):
+git rebase main
+This takes the commits from feature-branch and replays them onto the tip of main
+
+REBASE EXAMPLE:
+
+Imagine you have the following branches:
+main and feature
+
+initial commit history:
+A---B---C---D   main
+         \
+          E---F   feature
+
+You want to rebase feature onto main so that it includes all changes from the 
+main branch. The result should look like this:
+A---B---C---D---E'---F'   main, feature
+
+These are the steps to attain above:
+git checkout feature
+git rebase main
+
+What Happens During Rebase:
+Git temporarily removes commits E and F from the feature branch.
+It then fast-forwards the feature branch to the tip of main (commit D).
+Finally, it reapplies commits E and F on top of commit D, creating new commits E' and F'.
+
+
+
+
+
+
+
+
+
+                          

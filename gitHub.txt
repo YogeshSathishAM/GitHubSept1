@@ -1,0 +1,413 @@
+1. Git is a software and github is an online service
+2. Git is a version control system that is used to track changes to your file
+
+////////////////////////////////////////////////////////////////////
+GIT FORMULAS and process
+
+1. git --version
+2. git status:
+this gives status of the directory/folder that we are in. if we dont run "git init"
+in a folder, that folder is not a repository. so with "git status" command we get error message:
+not a repository
+
+3. to setup email and username in git
+- git config --global user.email "email"
+- git config --global user.name "name"
+3.1) use the same above commands to chnage the email or username
+
+4. to check config settings
+- git config --list
+
+5. creating a repository
+- git status: just to find status of current folder
+- git init
+
+6. This command renames the current branch to <name>:
+git branch -m <name>
+
+6.1 If you want to rename a different branch (not the current one), you would use:
+git branch -m <old-name> <new-name>
+
+7. Flow in git looks like this:
+
+WRITE >>> ADD >>> COMMIT
+
+8. Basic operations
+
+git init >> work directory creation
+git add >> staging area
+git commit >> Repository
+git push >> pushing into github
+
+9. File adding in git
+
+- git add <filename1> <filename2> operations
+- git add . >> this is to add all files
+
+9.1 To unstage the files:
+- git rm --cached <file>
+
+10. to commit
+- git commit -m "commit 1"
+
+11. git log:
+this is to find the commits that have been done
+
+11.1 to show the commits in short:
+-  git log --oneline
+
+12. Change default code editor to vs-code:
+- git config --global core.editor "code --wait"
+
+13. gitignore
+- inside .gitignore file whatever details we write arent tracked and also we can 
+mention the file name inside .gitignore which we wish not to get tracked
+
+14. Head in GIT:
+> In Git, "HEAD" refers to the current commit that you are working on. More 
+specifically, it is a reference to the tip of the current branch.
+
+15. git branches
+
+-  git branch "branch-name"
+- git switch "branch name" : switches to branch "branch name"
+- git switch -c "branchNew" : creates the branch branchNew and switches there
+- git checkout "branch2" : here we get switched to already existing branch named "branch2"
+
+16. MERGE
+
+- first we have to be in current branch branch1 where we desire to merge the chnages from
+other branch branch2 into this current branch branch1
+- git merge branch2
+
+17.  FAST FORWARD MERGE
+
+A fast-forward merge in GitHub, like in Git, occurs when the branch you're 
+merging into has no new commits since the branch you're merging from diverged. 
+In this scenario, Git simply moves the pointer of the target branch forward to 
+match the source branch.
+
+Assume we have two branches: main and feature.
+main: A --- B --- C --- D
+feature: A-B-C-D(main)
+                -E-F (feature)
+
+If main has no new commits since feature was created, a fast-forward merge can 
+happen. The result will be:
+A --- B --- C --- D --- E --- F  (main, feature)
+
+Performing a Fast-Forward Merge on GitHub
+Create a Pull Request (PR):
+
+Open a PR from feature to main:
+If there are no conflicting commits on main and feature is ahead of main, GitHub will suggest a fast-forward merge.
+Merge the PR:
+
+Click the "Merge pull request" button on GitHub.
+If a fast-forward merge is possible, GitHub will perform it automatically.
+
+18. NOT FAST FORWARD MERGE
+
+A non-fast-forward merge in GitHub is necessary when the target branch has 
+diverged from the source branch, meaning both branches have new commits since 
+they split. i.e, there are commits available in both main and other branch
+Example:
+
+Assume we have two branches: main and feature.
+main: A --- B --- C --- D
+feature: A-B-C-D(main)
+                -E-F (feature)
+
+- now commits are added to main: (G and H)
+A --- B --- C --- D --- G --- H  (main)
+                     \
+                      E --- F  (feature)
+
+When you attempt to merge feature into main, GitHub cannot simply move the 
+main branch pointer forward because main has new commits (G and H) that 
+feature does not. A merge commit is created to combine the histories:
+
+A --- B --- C --- D --- G --- H --- I  (main)
+                     \              /
+                      E --- F -----
+
+Performing a Non-Fast-Forward Merge on GitHub
+Create a Pull Request (PR):
+
+Open a PR from feature to main.
+GitHub will indicate that the branches have diverged and a merge commit is needed.
+Merge the PR:
+
+Click the "Merge pull request" button.
+GitHub will create a merge commit that combines the changes from feature into main.
+////////////////////////////////////
+
+19. Merge conflicting
+
+<<<<<<<<<<< Head
+------------
+------------      >> branch that we are on        
+------------
+=============
+------------
+------------     >> conflict that came from other branch
+------------
+>>>>>>>> bug fix
+
+- when we get the above message due to merge conflict, we should manually 
+fix the conflicts be removing >>>, ==== <<< and keeoing only the messages 
+that we want to be retained, then save the file
+- then we add and commit the message
+
+20. To delete a branch
+- git branch -d "branch name"
+
+21. git diff: command showing difference between two commits
+> ------- : indicates fileA
+> +++++ : indicates file B
+> @@ indicates line number
+
+- git diff by itself dont show anything, we have to mwntion the changes to be observed
+
+21.1 git diff --staged/--cached 
+shows the changes between the staging area (also known as the index) 
+and the last commit. This is useful for reviewing what changes are staged and 
+will be included in the next commit.
+
+21.2 git diff <branch1> <branch2>
+shows the chnages between branch1 and branch2
+
+21.2 git diff <commit1> <commit2>
+shows the difference between the two commits after we get the commit number of two
+commits from git log --online/git log command
+
+///////////////////////////////////////////////////////////////////////////
+
+22. GIT STASH
+
+git stash is a powerful command in Git that temporarily saves changes in your 
+working directory and index (staging area) so you can work on something else 
+and then come back to your original changes later. 
+
+This can be particularly useful when you need to switch branches or pull in 
+changes from the remote repository without committing unfinished work.
+
+22.1 git stash
+
+22.2 List all stashed changes
+git stash list
+
+22.3 : naming the stash
+git stash save "name1"
+
+- working:
+1) when we are in a file in a branch and doing some work in the file, we dont yet want to commit the changes
+or take it to staging area. Hence, we stash the chnages before moving over to
+some other branch from current branch 
+
+2) when we go to some other branch from master, it will give us an error message 
+to commit our changes or stash the chnages in file in master before we move on to some
+other branch
+
+3) as soon as we get this message, we do this command:
+git stash
+
+4) after above command, we will be able to switch to other branch
+we can then switch back to the master branch
+
+5) after coming back to branch, we can re apply the stash by using this 
+command:
+git stash apply
+
+6) to apply the a particular stash from the list of stash, we can use this commandd:
+git stash apply stash@{0}
+- how we get the list of stash? from this command: *"git stash list"
+
+22.4: to apply and remove the stash:
+git stash pop
+
+22.5: to drop the stash
+git stash drop
+
+22.6 apply the stash to a specific branch
+git stash apply stash@{0} <branch name>
+
+22.7 git stash clear: to clear the stash
+
+////////////////////////////////////////////
+
+23. Git Tags
+
+In Git, a tag is a reference that points to a specific point in the 
+repository's history. Tags are often used to mark releases (e.g., v1.0, v2.0) 
+or significant milestones. There are two types of tags in Git: lightweight 
+and annotated.
+
+23.1: git tag <tag name> // to create tag
+eg: git tag v1.0
+
+23.2: Annotated Tags: // to create annonated tags
+Annotated tags store extra metadata such as the tagger name, email, date, 
+and a tagging message. They are stored as full objects in the Git database.
+
+git tag -a <tagname> -m "tag message"
+eg: git tag -a v1.0 -m "Release version 1.0"
+
+23.3: to see all the tags:
+git tag
+
+23.4: To put the tag along with commit:
+
+> git log --online : gives all commits having commit number
+> tahke the commit numb where you have to put the tag and use this:
+git tag <tag name> <commit/hash> // here the tag name must be new, not already existing
+
+///////////////////////////////////////////////////////////
+
+24. REBASE
+
+Rebasing in Git is a powerful tool that allows you to move or combine a sequence 
+of commits to a new base commit. It is often used to maintain a cleaner, more 
+linear project history. There are two main types of rebases: 
+local (interactive) and remote.
+
+git Rebase allows us to chnage the base of a branch. it allows us to move the
+branch to a new starting point. 
+
+Rebasing is commonly used to incorporate changes from one branch into another.
+
+In simple terms, in main branch there are 3 changes, from where the new branch has been created
+In new branch, few files have been added and in main branch someone has introduced
+new file.
+Because of this the base in new branch has to be shifted from 3rd file to the 4th file
+this process of chnaging the base of main branch from third file to fourth file
+in main branch is called the process of REBASE
+
+Example Scenario:
+
+Current Branch Setup:
+main branch: A---B---C
+feature branch: D---E (branched from main at C)
+
+Make Changes on main:
+
+main branch: A---B---C---F---G
+Rebase feature onto main:
+
+feature branch: A---B---C---F---G---D'---E'
+//////////////////////////////
+
+Example Scenario 2:
+
+- Always ensure that you are on the branch that you want to rebase
+- rebase usually carried out on sub branch
+
+- we are in master branch and then we created a separate branch named purple
+- we then switch to this purple branch
+- now, new chnages in master branch and we want to rebase the master branch, so
+we are using rebase code in github:
+          " git rebase master"
+- in rebase there is no extra commit message
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+25. GIT REFLOG
+
+git reflog is an essential tool for tracking changes to references in a Git 
+repository. It helps in recovering lost commits, understanding recent actions, 
+and managing the history of branches.
+
+Reflogs are useful in various Git commands, to specify the old value of a 
+reference. For example, HEAD@{2} means "where HEAD used to be two moves ago", 
+master@{one. week. ago} means "where master used to point to one week ago in 
+this local 
+
+25.1: git reflog 
+gives list of all commits 
+or use git log --oneline to get very short commit messages
+
+25.2: git reset --hard <commit/hash>
+here our code is set back to the commit number tht we have put above i.e, code
+sets itself to the history where we had put the commit for code changes
+
+//////////////////////////////////////////////////////////////////////
+                            GITHUB/GITLAB
+//////////////////////////////////////////////////////////////////////
+
+- github/gitlab is used to keep the repositories safe in online
+- we generate a ssh key in our system and then share it with github
+- so when we send request from our system to github, github identifies it as 
+the request from our system since we have shared our systems ssh key with GitHub
+
+- Steps required to create SSH key:
+
+1. go to github account that is created by us
+2. go to settings in github at top right end
+3. then go to SSH and GPG keys, where there is guide to setup the SSH key
+4. for ssk key generation, use the key that you have used for GitHub
+
+/////////////////////////////////////////
+
+26. To push a repository into github
+
+a) go to github and manually cretae a new repository
+b) check remote url settings by this command:
+       git remote -v
+
+26.1: to add remote repository:
+         git remote add <url of the repository created by us in GITHUB>
+
+26.2: To push the changes into origin:
+          git push origin main
+         - git push -u origin : this sets the upstream to main setupstream, know about this or
+           git remote add -u <remote url> // this also sets the upstream 
+
+        - after setting the upstream, we can just give "git push" to push the 
+        changes into origin
+
+27. README.MD file
+
+- create readme.md file in repository
+- then add and commit this readme.md file
+- then come to github and refresh the page, in readme section in the repository created 
+in github whatever we have typed in file appears in github
+
+28. git clone
+used to make a copy of online repository
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+Definitions:
+
+1. Repository is a collection of files and directories that are stored together

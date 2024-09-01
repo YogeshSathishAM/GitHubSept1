@@ -1,0 +1,61 @@
+FAST FORWARD MERGE:
+
+- there is main branch having commits A and B
+- A separate branch "feature" is cretaed and then new commits C and D are done
+- now switch to main branch : git switch/checkout main 
+- in the main branch, run this command: "git merge feature", this will merge the commits C and D into main branch
+- git log/ git log --oneline, this will giv ethe details of branch we are on and the
+commit in the branch to which the head is pointing to
+- initially the head refers to commit B in main branch
+- in branch "feature", the head points to latest commit in feature branch that is commit D
+- After merging, the commits in main branch will be:
+A-B-C-D
+- The head in main branch will now point to the latest commit that we have merged 
+i.e, commit "D"
+
+
+Conditions required for the fast merge:
+1) there should not be any commits done in main branch after feature branch is created
+2) the feature branch can have any number of commits
+
+//////////////////////////////////////////////////////////////////////////
+
+\\\\\\\\\\\
+3 WAY MERGE
+\\\\\\\\\\\\
+
+- Consider a "master" branch having 2 commits, commit1 and commit2
+- pull the master branch into local machine and then create a branch "login" 
+for user1 and branch "addcart" for user2
+- user1 creates commit3 and commit4
+- user2 has created commit5 and commit6
+- now user2 first merges his branch "addcart" into master branch. this is nothing but the 
+fast forward merge. The master branch will now look like this with new commits:
+"commit1 - commit2 - commit5 - commit6"  > here the head will move 
+from commit2 to commit6
+- and the branch "login" will now have these commits: "commit3 - commit 4"
+
+- now user1 switches to branch main and then pulls the chnages of main branch
+into his local system
+- now when user1 tries to merge his branch "login" into "main" branch, git will 
+now use the 3 way merge as there are new commits in main branch and fast forward
+merge is no more possible here
+
+- what happens in 3 way merge:
+1) git will create an automatice merge object and place it beside commit6 in 
+"main" branch
+master branch: commit1 - commit2 - commit5 - commit6- automatic merge object
+login branch: commit3 - commit 4
+
+2) in 3 way merge, the latest commit of "master" branch and "login" branch will act as 
+help in creating the "automatic merge object" and the HEAD will point to autoMergeCommit 
+in the main/master branch which will look like this in "main" branch:
+[commit2,commit6 and commit4 are involved in making autoMerge and hence the name 3 way commit]
+commit1 - commit2 - commit5 - commit6- autom merge commit(HEAD)
+              |                           |
+           commit3 ------------------>  commit4
+
+3) auto merge commit here is created by GIT itself and not by any other branch
+
+
+
