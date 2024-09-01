@@ -1,3 +1,17 @@
+///////////////////////////////////////////////////////////////////////////////////////
+From my understanding, following points:
+
+1) In new directory, when we create a new branch its not shown in git branch
+command because its needed to push the vreated branch into github repository
+
+2) when we do any changes in local repository in a branch, we need to commit 
+it using these git add . and git commit -m "eyvce" and then push the chnages 
+into repository in same branch. Unless we do these changes. we wont be 
+able to pull the anything from repository since the changes in local are ahead
+compared to repository
+
+
+///////////////////////////////////////////////////////////////////////////////////////
 1. Git is a software and github is an online service
 2. Git is a version control system that is used to track changes to your file
 
