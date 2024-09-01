@@ -10,8 +10,8 @@ into repository in same branch. Unless we do these changes. we wont be
 able to pull the anything from repository since the changes in local are ahead
 compared to repository
 
-
 ///////////////////////////////////////////////////////////////////////////////////////
+
 1. Git is a software and github is an online service
 2. Git is a version control system that is used to track changes to your file
 
