@@ -4,7 +4,7 @@ const path = require("path")
 
 const MongoDbCnct = require("./mongodbConnect")
 const MongoDB = require("./mongoDbSchema")
-
+// 7th line chnage in github web
 app.use(express.json())
 app.use(express.urlencoded())
 
