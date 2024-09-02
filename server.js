@@ -19,7 +19,7 @@ const start = require("./routes/start")
 app.get("/start",Authentication, start) // this works with journey through routes folder and controllers folder
 app.get("/diffOps", diffOps)  // why this doesnt work
 // rough work - this is vsCode work
-// rough work - this is github work in web
+// rough work - sep2, trying new on sep2, 10.41
 
 app.listen(4000,()=>{
     console.log("listening to port 4000")
